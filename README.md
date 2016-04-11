@@ -2,6 +2,8 @@
 
 ## Setup
 
+This was written with Python 3.
+
 - `virtualenv env`
 - `env/bin/pip install -r requirements.txt`
 - `./get-em.py`
