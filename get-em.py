@@ -1,9 +1,11 @@
 #!env/bin/python
 
+import io
+import csv
 import json
 import datetime
 import requests
-from tabulate import tabulate
+import pyperclip
 
 def fetch_competitions():
     competitions = []
@@ -28,8 +30,13 @@ def fetch_competitions():
 def main():
     competitions = fetch_competitions()
 
-    table = [ [ c["id"], c["name"], c["start_date"] ] for c in competitions ]
-    print(tabulate(table, headers=[ "ID", "Name", "Start Date"]))
+    output = io.StringIO()
+    writer = csv.writer(output)
+    for c in competitions:
+        writer.writerow([c["id"], c["name"], c["start_date"]])
+    csv_comps = output.getvalue()
+    pyperclip.copy(csv_comps)
+    print(csv_comps)
 
 if __name__ == "__main__":
     main()
